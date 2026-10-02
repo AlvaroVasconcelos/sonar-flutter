@@ -4,7 +4,7 @@
     <parent>
         <artifactId>sonar-flutter</artifactId>
         <groupId>fr.insideapp.sonarqube</groupId>
-        <version>0.5.2</version>
+        <version>0.5.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -17,7 +17,7 @@
         <dependency>
             <groupId>fr.insideapp.sonarqube</groupId>
             <artifactId>dart-lang</artifactId>
-            <version>0.5.2</version>
+            <version>0.5.3-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
@@ -29,11 +29,13 @@
             <plugin>
                 <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
                 <artifactId>sonar-packaging-maven-plugin</artifactId>
-                <version>1.18.0.372</version>
+                <version>1.23.0.740</version>
                 <extensions>true</extensions>
                 <configuration>
                     <pluginClass>fr.insideapp.sonarqube.flutter.FlutterPlugin</pluginClass>
                     <pluginName>Flutter</pluginName>
+                    <pluginApiMinVersion>10.8</pluginApiMinVersion>
+                    <requireForLanguages>dart</requireForLanguages>
                 </configuration>
             </plugin>
 

@@ -4,6 +4,28 @@
 
 #### Breaking
 
+- Requires Java 17+ and a SonarQube version supporting Plugin API 13.4+.
+
+#### Experimental
+
+- None.
+
+#### Enhancements
+
+- Dart 3 grammar support (records, patterns, sealed/base/interface/final class modifiers, ...).
+- New `Dart Security` rule repository: hardcoded credentials and encryption keys, cleartext HTTP, weak hash, insecure random, bad certificate trust, insecure storage, WebView JavaScript, sensitive data in logs, SQL injection and command injection.
+- Cognitive complexity metric, plus classes / functions / statements size metrics.
+- Migration to SonarQube Plugin API 13.4 (Java 17+).
+
+#### Bug Fixes
+
+- None.
+
+
+## 0.5.2
+
+#### Breaking
+
 - None.
 
 #### Experimental
@@ -12,7 +34,7 @@
 
 #### Enhancements
 
-- Analyzer rules update (7 added)
+- Analyzer rules update: there are now 279 rules available
 
 #### Bug Fixes
 
@@ -31,7 +53,7 @@
 
 #### Enhancements
 
-- Analyzer rules update: there are now 279 rules available
+- Analyzer rules update (2 added)
 
 #### Bug Fixes
 
