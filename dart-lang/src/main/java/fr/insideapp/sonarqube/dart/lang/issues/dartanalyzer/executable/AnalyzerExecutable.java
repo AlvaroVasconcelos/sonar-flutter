@@ -126,12 +126,12 @@ public abstract class AnalyzerExecutable {
         return sensorContext.fileSystem().resolvePath(ANALYSIS_OPTIONS_FILENAME).exists();
     }
 
-    private void saveCurrentAnalysisOptionsFile(SensorContext sensorContext) {
+    private void saveCurrentAnalysisOptionsFile(SensorContext sensorContext) throws IOException {
         File analysisOptionsFile = sensorContext.fileSystem().resolvePath(ANALYSIS_OPTIONS_FILENAME);
         String backup = ANALYSIS_OPTIONS_FILENAME + ".sonar";
-        if (analysisOptionsFile.renameTo(sensorContext.fileSystem().resolvePath(backup))) {
-            LOGGER.info("Backup of original {} file to {}", ANALYSIS_OPTIONS_FILENAME, backup);
-        }
+        // Files.move rather than File.renameTo, which cannot replace an existing file on Windows
+        Files.move(analysisOptionsFile.toPath(), sensorContext.fileSystem().resolvePath(backup).toPath(), StandardCopyOption.REPLACE_EXISTING);
+        LOGGER.info("Backup of original {} file to {}", ANALYSIS_OPTIONS_FILENAME, backup);
     }
 
     private void createAnalysisOptionsFile(SensorContext sensorContext) throws IOException {
@@ -147,7 +147,8 @@ public abstract class AnalyzerExecutable {
     private void restoreAnalysisOptionsFile(SensorContext sensorContext) throws IOException {
         File analysisOptionsFile = sensorContext.fileSystem().resolvePath(ANALYSIS_OPTIONS_FILENAME);
         File backupAnalysisOptionsFile = sensorContext.fileSystem().resolvePath(ANALYSIS_OPTIONS_FILENAME + ".sonar");
-        if (backupAnalysisOptionsFile.exists() && backupAnalysisOptionsFile.renameTo(analysisOptionsFile)) {
+        if (backupAnalysisOptionsFile.exists()) {
+            Files.move(backupAnalysisOptionsFile.toPath(), analysisOptionsFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             LOGGER.info("Restored original {} file", ANALYSIS_OPTIONS_FILENAME);
         } else {
             Files.delete(analysisOptionsFile.toPath());
